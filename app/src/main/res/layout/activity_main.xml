@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/quizLite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="QuizLite"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textColor="@color/light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="185dp" />
+
+    <TextView
+        android:id="@+id/subheading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="The best flashcard app out there"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/light"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="267dp" />
+
+    <Button
+        android:id="@+id/createBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/medium"
+        android:onClick="createQuiz"
+        android:text="Create"
+        android:textColor="@color/light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.597" />
+
+    <Button
+        android:id="@+id/studyBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/light"
+        android:onClick="study"
+        android:text="Study"
+        android:textColor="@color/dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="426dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
