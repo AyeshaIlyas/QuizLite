@@ -5,54 +5,57 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark"
+    android:backgroundTint="@color/dark"
     tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/quizLite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="QuizLite"
+        android:text="@string/quizlite"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        android:textColor="@color/light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="185dp" />
-
-    <TextView
-        android:id="@+id/subheading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="The best flashcard app out there"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/light"
-        android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="267dp" />
-
-    <Button
-        android:id="@+id/createBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/medium"
-        android:onClick="createQuiz"
-        android:text="Create"
         android:textColor="@color/light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.597" />
+        app:layout_constraintVertical_bias="0.30" />
+
+    <Button
+        android:id="@+id/createBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/medium"
+        android:text="@string/create"
+        android:textColor="@color/light"
+        app:layout_constraintEnd_toEndOf="@+id/subheading"
+        app:layout_constraintStart_toStartOf="@+id/subheading"
+        app:layout_constraintTop_toBottomOf="@+id/subheading" />
+
+    <TextView
+        android:id="@+id/subheading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/subheading"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/light"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="@+id/quizLite"
+        app:layout_constraintStart_toStartOf="@+id/quizLite"
+        app:layout_constraintTop_toBottomOf="@+id/quizLite" />
 
     <Button
         android:id="@+id/studyBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:backgroundTint="@color/light"
-        android:onClick="study"
-        android:text="Study"
-        android:textColor="@color/dark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="426dp" />
+        android:text="@string/study"
+        android:textColor="@color/medium"
+        app:layout_constraintEnd_toEndOf="@+id/createBtn"
+        app:layout_constraintStart_toStartOf="@+id/createBtn"
+        app:layout_constraintTop_toBottomOf="@+id/createBtn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
