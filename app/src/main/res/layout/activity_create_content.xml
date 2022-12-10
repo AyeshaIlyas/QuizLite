@@ -6,4 +6,151 @@
     android:layout_height="match_parent"
     tools:context=".CreateContentActivity">
 
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/medium"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/medium">
+
+            <TextView
+                android:id="@+id/general"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="120dp"
+                android:text="@string/general"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+                android:textColor="@color/light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/createSetSubheading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@string/create_set_subheading"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/light"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="@+id/general"
+                app:layout_constraintStart_toStartOf="@+id/general"
+                app:layout_constraintTop_toBottomOf="@+id/general" />
+
+            <EditText
+                android:id="@+id/nameField"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/rounded_edittext"
+                android:backgroundTint="@color/light"
+                android:ems="10"
+                android:hint="@string/name"
+                android:inputType="textPersonName"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="@+id/createSetSubheading"
+                app:layout_constraintStart_toStartOf="@+id/createSetSubheading"
+                app:layout_constraintTop_toBottomOf="@+id/createSetSubheading"
+                android:autofillHints="" />
+
+            <EditText
+                android:id="@+id/topicField"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/rounded_edittext"
+                android:backgroundTint="@color/light"
+                android:ems="10"
+                android:hint="@string/topic"
+                android:inputType="textPersonName"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="@+id/nameField"
+                app:layout_constraintStart_toStartOf="@+id/nameField"
+                app:layout_constraintTop_toBottomOf="@+id/nameField"
+                android:autofillHints="" />
+
+            <EditText
+                android:id="@+id/descField"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/rounded_edittext"
+                android:backgroundTint="@color/light"
+                android:ems="10"
+                android:gravity="top|start"
+                android:hint="@string/create_set_error"
+                android:inputType="textMultiLine"
+                android:lines="8"
+                android:maxLines="12"
+                android:minLines="6"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:scrollbars="vertical"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="@+id/topicField"
+                app:layout_constraintStart_toStartOf="@+id/topicField"
+                app:layout_constraintTop_toBottomOf="@+id/topicField"
+                tools:ignore="TextContrastCheck"
+                android:autofillHints="" />
+
+            <TextView
+                android:id="@+id/error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/light"
+                app:layout_constraintEnd_toEndOf="@+id/descField"
+                app:layout_constraintStart_toStartOf="@+id/descField"
+                app:layout_constraintTop_toBottomOf="@+id/descField"
+                tools:text="please enter a name and topic"
+                tools:visibility="gone" />
+
+            <Button
+                android:id="@+id/nextBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="30dp"
+                android:backgroundTint="@color/light"
+                android:text="@string/next"
+                android:textColor="@color/medium"
+                app:cornerRadius="30dp"
+                app:layout_constraintEnd_toStartOf="@+id/eraseBtn"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/error" />
+
+            <Button
+                android:id="@+id/eraseBtn"
+                android:layout_width="88dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="30dp"
+                android:backgroundTint="@color/dark"
+                android:text="@string/erase"
+                android:textColor="@color/light"
+                app:cornerRadius="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/nextBtn"
+                app:layout_constraintTop_toBottomOf="@+id/error" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
