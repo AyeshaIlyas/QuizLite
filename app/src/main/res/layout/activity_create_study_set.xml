@@ -23,7 +23,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/medium">
+            android:background="@color/medium"
+            android:paddingBottom="50dp">
 
             <TextView
                 android:id="@+id/general"
@@ -95,7 +96,7 @@
                 android:backgroundTint="@color/light"
                 android:ems="10"
                 android:gravity="top|start"
-                android:hint="@string/create_set_error"
+                android:hint="@string/desc_hint"
                 android:inputType="textMultiLine"
                 android:lines="8"
                 android:maxLines="12"
@@ -112,16 +113,17 @@
 
             <TextView
                 android:id="@+id/error"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/light"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@+id/descField"
                 app:layout_constraintStart_toStartOf="@+id/descField"
                 app:layout_constraintTop_toBottomOf="@+id/descField"
                 tools:text="please enter a name and topic"
-                tools:visibility="gone" />
+                tools:visibility="visible" />
 
             <Button
                 android:id="@+id/nextBtn"

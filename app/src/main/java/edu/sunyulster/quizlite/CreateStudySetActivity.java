@@ -7,13 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Toast;
-
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.snackbar.SnackbarContentLayout;
 
 import edu.sunyulster.quizlite.databinding.ActivityCreateStudySetBinding;
 
@@ -47,11 +42,14 @@ public class CreateStudySetActivity extends AppCompatActivity {
             public void onClick(View view) {
                 boolean isValid = validateData();
                 if (isValid) {
+                    binding.error.setVisibility(View.GONE);
                     saveData();
                     Intent i = new Intent(CreateStudySetActivity.this, CreateContentActivity.class);
                     startActivity(i);
-                } else
+                } else {
+                    binding.error.setVisibility(View.VISIBLE);
                     binding.error.setText(R.string.error1);
+                }
             }
         });
     }
@@ -89,8 +87,16 @@ public class CreateStudySetActivity extends AppCompatActivity {
     public void invalidateSavedData() {
         // set saved flag to false
         SharedPreferences.Editor editor = sp.edit();
+        // reset set info
+        editor.putString(getString(R.string.set_name), "");
+        editor.putString(getString(R.string.set_topic), "");
+        editor.putString(getString(R.string.desc), "");
+        // reset content info
+        // TODO: How should this be saved
+        editor.putString(getString(R.string.set_content), getString(R.string.empty_flag));
+
         editor.putString(getString(R.string.has_saved), "false");
-        editor.apply();
+        editor.commit();
     }
 
     public void showEraseDataDialog() {
@@ -127,24 +133,9 @@ public class CreateStudySetActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    public void showBackDialog() {
-        new AlertDialog.Builder(this)
-                .setTitle(R.string.save_title)
-                .setMessage(R.string.save_message)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        saveData();
-                    }
-                })
-                .setNegativeButton(android.R.string.no, null)
-                .show();
-    }
-
     @Override
     public void onBackPressed() {
-        // TODO: does this work properly? Should either save data or do nothing, then finish activity. Do I need to manually finish the activity?
-        showBackDialog();
+        saveData();
         super.onBackPressed();
     }
 
