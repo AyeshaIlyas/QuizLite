@@ -4,7 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/rounded_edittext.xml" value="0.258" />
         <entry key="app/src/main/res/drawable/studying.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_create_content.xml" value="0.21082251082251083" />
+        <entry key="app/src/main/res/layout/activity_create_study_set.xml" value="0.2560535926603328" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.24844365705523574" />
       </map>
     </option>

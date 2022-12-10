@@ -21,18 +21,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.30" />
 
-    <Button
-        android:id="@+id/createBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:backgroundTint="@color/medium"
-        android:text="@string/create"
-        android:textColor="@color/light"
-        app:layout_constraintEnd_toEndOf="@+id/subheading"
-        app:layout_constraintStart_toStartOf="@+id/subheading"
-        app:layout_constraintTop_toBottomOf="@+id/subheading" />
-
     <TextView
         android:id="@+id/subheading"
         android:layout_width="wrap_content"
@@ -47,6 +35,19 @@
         app:layout_constraintTop_toBottomOf="@+id/quizLite" />
 
     <Button
+        android:id="@+id/createBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/medium"
+        android:text="@string/create"
+        android:textColor="@color/light"
+        app:cornerRadius="30dp"
+        app:layout_constraintEnd_toEndOf="@+id/subheading"
+        app:layout_constraintStart_toStartOf="@+id/subheading"
+        app:layout_constraintTop_toBottomOf="@+id/subheading" />
+
+    <Button
         android:id="@+id/studyBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,6 +55,7 @@
         android:backgroundTint="@color/light"
         android:text="@string/study"
         android:textColor="@color/medium"
+        app:cornerRadius="30dp"
         app:layout_constraintEnd_toEndOf="@+id/createBtn"
         app:layout_constraintStart_toStartOf="@+id/createBtn"
         app:layout_constraintTop_toBottomOf="@+id/createBtn" />

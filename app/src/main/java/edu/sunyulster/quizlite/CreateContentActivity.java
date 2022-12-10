@@ -4,16 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import edu.sunyulster.quizlite.databinding.ActivityStudySetsBinding;
+import edu.sunyulster.quizlite.databinding.ActivityCreateContentBinding;
 
-public class StudySetsActivity extends AppCompatActivity {
+public class CreateContentActivity extends AppCompatActivity {
 
-    private ActivityStudySetsBinding binding;
+    private ActivityCreateContentBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityStudySetsBinding.inflate(getLayoutInflater());
+        binding = ActivityCreateContentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
     }
 }

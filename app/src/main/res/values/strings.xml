@@ -4,4 +4,25 @@
     <string name="subheading">The best flashcard app out there</string>
     <string name="study">Study</string>
     <string name="create">Create</string>
+    <string name="create_set_subheading">Configure general study set properties</string>
+    <string name="general">General</string>
+    <string name="name">Name</string>
+    <string name="topic">Topic</string>
+    <string name="create_set_error">Add a description of the study set here (optional)</string>
+    <string name="next">Next</string>
+    <string name="erase">Erase</string>
+
+    <!--  shared preferences  -->
+    <string name="saved_study_set">saved_study_set</string>
+    <string name="has_saved">has_saved</string>
+    <string name="set_name">name</string>
+    <string name="set_topic">topic</string>
+    <string name="desc">desc</string>
+
+    <!--  CreateStudySetActivity  -->
+    <string name="error1">Name and Topic are mandatory fields. Please enter valid values to continue.</string>
+    <string name="erase_title">Erase Data</string>
+    <string name="erase_message">Are you sure you want to erase saved data? This means your progress creating this study set will be lost forever.</string>
+    <string name="save_title">Save Data</string>
+    <string name="save_message">Would you like to save your progress?</string>
 </resources>
