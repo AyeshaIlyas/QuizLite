@@ -99,10 +99,11 @@
                 tools:ignore="TextContrastCheck" />
 
             <TextView
-                android:id="@+id/error"
+                android:id="@+id/contentError"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:text="@string/error2"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/light"
                 android:visibility="gone"
@@ -118,13 +119,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="30dp"
                 android:backgroundTint="@color/light"
-                android:text="@string/new"
+                android:text="@string/new_card"
                 android:textColor="@color/medium"
                 app:cornerRadius="30dp"
                 app:layout_constraintEnd_toStartOf="@+id/doneBtn"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/error" />
+                app:layout_constraintTop_toBottomOf="@+id/contentError" />
 
             <Button
                 android:id="@+id/doneBtn"
@@ -138,7 +139,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/newBtn"
-                app:layout_constraintTop_toBottomOf="@+id/error" />
+                app:layout_constraintTop_toBottomOf="@+id/contentError" />
 
             <TextView
                 android:id="@+id/cardNumber"

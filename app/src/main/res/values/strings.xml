@@ -32,7 +32,9 @@
     <string name="error2">Please fill out both fields</string>
     <string name="keyHint">Key/Term/Question</string>
     <string name="valueHint">Value/Definition/Answer</string>
-    <string name="new">New</string>
+    <string name="new_card">New</string>
     <string name="done">Done</string>
+    <string name="not_saved_title">Data Not Saved</string>
+    <string name="not_saved_message">Are you sure you want to go back? Your input is not valid for the current card, so this card\'s info will not be saved. Everything else will be saved so you can resume editing later.</string>
 
 </resources>

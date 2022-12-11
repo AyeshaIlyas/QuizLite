@@ -1,7 +1,9 @@
 package edu.sunyulster.quizlite;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -65,6 +67,7 @@ public class CreateContentActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (currentCard > 0 && storeDataLocally()) {
+                    Log.i("CreateContentActivity", "going back");
                     fillForm(vm.getNthItem(--currentCard));
                     setCardNumber(currentCard + 1);
                 }
@@ -75,6 +78,7 @@ public class CreateContentActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (currentCard < lastCard && storeDataLocally()) {
+                    Log.i("CreateContentActivity", "going forward");
                     fillForm(vm.getNthItem(++currentCard));
                     setCardNumber(currentCard + 1);
                 }
@@ -112,10 +116,10 @@ public class CreateContentActivity extends AppCompatActivity {
         String[] data = getFieldData();
         for (int i = 0; i < data.length; i++)
             if (data[i].isEmpty()) {
-                binding.error.setVisibility(View.VISIBLE);
+                binding.contentError.setVisibility(View.VISIBLE);
                 return false;
             }
-        binding.error.setVisibility(View.GONE);
+        binding.contentError.setVisibility(View.GONE);
         vm.saveDataToIndex(currentCard, data);
         return true;
     }
