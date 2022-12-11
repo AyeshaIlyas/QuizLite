@@ -33,7 +33,7 @@ public class CreateContentActivity extends AppCompatActivity {
         // if saved data, then load into view model
         if (vm.hasData()) {
             fillForm(vm.getNthItem(lastCard));
-            lastCard = vm.dataLength();
+            lastCard = vm.dataLength() - 1;
         }
 
         // set listeners
@@ -77,7 +77,7 @@ public class CreateContentActivity extends AppCompatActivity {
         binding.forwardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentCard < vm.dataLength() - 1) {
+                if (currentCard < lastCard) {
                     fillForm(vm.getNthItem(++currentCard));
                     setCardNumber(currentCard + 1);
                 }
