@@ -42,7 +42,8 @@ public class CreateContentActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (processData()) {
                     clearFields();
-                    currentCard = ++lastCard;
+                    lastCard = vm.dataLength();
+                    currentCard = lastCard;
                     setCardNumber(lastCard + 1);
                 }
             }
@@ -63,11 +64,7 @@ public class CreateContentActivity extends AppCompatActivity {
         binding.backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentCard > 0) {
-                    // if data from the last card is not saved, save the data
-                    if (currentCard == lastCard && lastCard + 1 == vm.dataLength()) {
-                        processData();
-                    }
+                if (currentCard > 0 && processData()) {
                     fillForm(vm.getNthItem(--currentCard));
                     setCardNumber(currentCard + 1);
                 }
@@ -77,7 +74,7 @@ public class CreateContentActivity extends AppCompatActivity {
         binding.forwardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentCard < lastCard) {
+                if (currentCard < lastCard && processData()) {
                     fillForm(vm.getNthItem(++currentCard));
                     setCardNumber(currentCard + 1);
                 }
@@ -119,22 +116,41 @@ public class CreateContentActivity extends AppCompatActivity {
                 return false;
             }
         binding.error.setVisibility(View.GONE);
-        vm.saveData(data);
+        vm.saveDataToIndex(currentCard, data);
         return true;
     }
+    
+     public void showNotSavedDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.not_saved_title)
+                .setMessage(R.string.not_saved_message)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        vm.saveToSharedPrefs();
+                        CreateContentActivity.this.finish();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .show();
+    }
+
 
     @Override
     public void onBackPressed() {
-       processData();
-       vm.saveToSharedPrefs();
-       super.onBackPressed();
+       if (!processData()) 
+           showNotSavedDialog();
+       else {
+           vm.saveToSharedPrefs();
+           super.onBackPressed();
+       }  
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        processData();
-        vm.saveToSharedPrefs();
+        processData(); // if the current card's data is not valid, then the card's data will NOT be saved. However all other data will be saved.
+        vm.saveToSharedPrefs(); // save valid data to shared pref
     }
 
 }
