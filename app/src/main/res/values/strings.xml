@@ -30,6 +30,9 @@
     <string name="content">Content</string>
     <string name="create_content_subheading">Add study content card by card</string>
     <string name="error2">Please fill out both fields</string>
-
+    <string name="keyHint">Key/Term/Question</string>
+    <string name="valueHint">Value/Definition/Answer</string>
+    <string name="new">New</string>
+    <string name="done">Done</string>
 
 </resources>
