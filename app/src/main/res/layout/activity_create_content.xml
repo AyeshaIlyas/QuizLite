@@ -26,7 +26,7 @@
             android:paddingBottom="50dp">
 
             <TextView
-                android:id="@+id/general"
+                android:id="@+id/content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="120dp"
@@ -38,7 +38,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/createSetSubheading"
+                android:id="@+id/createContentSubheading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
@@ -46,9 +46,9 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/light"
                 android:textStyle="italic"
-                app:layout_constraintEnd_toEndOf="@+id/general"
-                app:layout_constraintStart_toStartOf="@+id/general"
-                app:layout_constraintTop_toBottomOf="@+id/general" />
+                app:layout_constraintEnd_toEndOf="@+id/content"
+                app:layout_constraintStart_toStartOf="@+id/content"
+                app:layout_constraintTop_toBottomOf="@+id/content" />
 
             <EditText
                 android:id="@+id/key"
@@ -60,7 +60,7 @@
                 android:backgroundTint="@color/light"
                 android:ems="10"
                 android:gravity="top|start"
-                android:hint="This information will be the key for this card"
+                android:hint="@string/keyHint"
                 android:inputType="textMultiLine"
                 android:lines="8"
                 android:maxLines="12"
@@ -84,7 +84,7 @@
                 android:backgroundTint="@color/light"
                 android:ems="10"
                 android:gravity="top|start"
-                android:hint="This is the value that corresponds the key"
+                android:hint="@string/valueHint"
                 android:inputType="textMultiLine"
                 android:lines="8"
                 android:maxLines="12"
@@ -109,7 +109,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/value"
                 app:layout_constraintStart_toStartOf="@+id/value"
                 app:layout_constraintTop_toBottomOf="@+id/value"
-                tools:text="please enter a name and topic"
+                tools:text="@string/error2"
                 tools:visibility="visible" />
 
             <Button
@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="30dp"
                 android:backgroundTint="@color/light"
-                android:text="New"
+                android:text="@string/new"
                 android:textColor="@color/medium"
                 app:cornerRadius="30dp"
                 app:layout_constraintEnd_toStartOf="@+id/doneBtn"
@@ -132,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="30dp"
                 android:backgroundTint="@color/light"
-                android:text="Done"
+                android:text="@string/done"
                 android:textColor="@color/medium"
                 app:cornerRadius="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -152,9 +152,9 @@
                 android:text="Card: 1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/light"
-                app:layout_constraintEnd_toEndOf="@+id/createSetSubheading"
-                app:layout_constraintStart_toStartOf="@+id/createSetSubheading"
-                app:layout_constraintTop_toBottomOf="@+id/createSetSubheading" />
+                app:layout_constraintEnd_toEndOf="@+id/createContentSubheading"
+                app:layout_constraintStart_toStartOf="@+id/createContentSubheading"
+                app:layout_constraintTop_toBottomOf="@+id/createContentSubheading" />
 
             <ImageButton
                 android:id="@+id/backBtn"
@@ -167,7 +167,7 @@
                 android:scaleX="2"
                 android:scaleY="2"
                 app:layout_constraintEnd_toStartOf="@+id/cardNumber"
-                app:layout_constraintTop_toBottomOf="@+id/createSetSubheading"
+                app:layout_constraintTop_toBottomOf="@+id/createContentSubheading"
                 app:srcCompat="@drawable/ic_arrow_back"
                 tools:ignore="SpeakableTextPresentCheck" />
 
@@ -182,7 +182,7 @@
                 android:scaleX="2"
                 android:scaleY="2"
                 app:layout_constraintStart_toEndOf="@+id/cardNumber"
-                app:layout_constraintTop_toBottomOf="@+id/createSetSubheading"
+                app:layout_constraintTop_toBottomOf="@+id/createContentSubheading"
                 app:srcCompat="@drawable/ic_arrow_forward"
                 tools:ignore="SpeakableTextPresentCheck" />
 
