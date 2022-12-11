@@ -40,7 +40,7 @@ public class CreateContentActivity extends AppCompatActivity {
         binding.newBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (processData()) {
+                if (storeDataLocally()) {
                     clearFields();
                     lastCard = vm.dataLength();
                     currentCard = lastCard;
@@ -52,7 +52,7 @@ public class CreateContentActivity extends AppCompatActivity {
         binding.doneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (processData()) {
+                if (storeDataLocally()) {
                     vm.addDataToDb();
                     Intent i = new Intent(CreateContentActivity.this, StudySetsActivity.class);
                     startActivity(i);
@@ -64,7 +64,7 @@ public class CreateContentActivity extends AppCompatActivity {
         binding.backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentCard > 0 && processData()) {
+                if (currentCard > 0 && storeDataLocally()) {
                     fillForm(vm.getNthItem(--currentCard));
                     setCardNumber(currentCard + 1);
                 }
@@ -74,7 +74,7 @@ public class CreateContentActivity extends AppCompatActivity {
         binding.forwardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentCard < lastCard && processData()) {
+                if (currentCard < lastCard && storeDataLocally()) {
                     fillForm(vm.getNthItem(++currentCard));
                     setCardNumber(currentCard + 1);
                 }
@@ -107,7 +107,7 @@ public class CreateContentActivity extends AppCompatActivity {
         return data;
     }
 
-    public boolean processData() {
+    public boolean storeDataLocally() {
         // data is invalid if either field contains empty strings
         String[] data = getFieldData();
         for (int i = 0; i < data.length; i++)
@@ -138,7 +138,7 @@ public class CreateContentActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-       if (!processData()) 
+       if (!storeDataLocally()) 
            showNotSavedDialog();
        else {
            vm.saveToSharedPrefs();
@@ -149,7 +149,7 @@ public class CreateContentActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        processData(); // if the current card's data is not valid, then the card's data will NOT be saved. However all other data will be saved.
+        storeDataLocally(); // if the current card's data is not valid, then the card's data will NOT be saved. However all other data will be saved.
         vm.saveToSharedPrefs(); // save valid data to shared pref
     }
 
