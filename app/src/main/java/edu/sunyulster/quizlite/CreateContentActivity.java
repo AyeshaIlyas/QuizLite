@@ -51,7 +51,7 @@ public class CreateContentActivity extends AppCompatActivity {
                     vm.addDataToDb();
                     Intent i = new Intent(CreateContentActivity.this, StudySetsActivity.class);
                     startActivity(i);
-                    CreateContentActivity.this.finishAffinity();
+                    CreateContentActivity.this.finishAffinity(); // clear activity backstack completely
                 }
             }
         });
@@ -60,8 +60,7 @@ public class CreateContentActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (cardNumber > 0) {
-                    Log.i("CreateContentActivity", "going back current index: " + cardNumber);
-                    fillForm(vm.getNthItem(--cardNumber ));
+                    fillForm(vm.getNthItem(--cardNumber));
                     setCardNumber(cardNumber + 1);
                 }
             }
@@ -71,8 +70,7 @@ public class CreateContentActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (cardNumber < vm.dataLength() - 1) {
-                    Log.i("CreateContentActivity", "going forward current index: " + cardNumber);
-                    fillForm(vm.getNthItem(++cardNumber ));
+                    fillForm(vm.getNthItem(++cardNumber));
                     setCardNumber(cardNumber + 1);
                 }
             }
@@ -110,7 +108,6 @@ public class CreateContentActivity extends AppCompatActivity {
         for (int i = 0; i < data.length; i++)
             if (data[i].isEmpty()) {
                 binding.error.setVisibility(View.VISIBLE);
-                binding.error.setText(R.string.error2);
                 return false;
             }
         binding.error.setVisibility(View.GONE);
