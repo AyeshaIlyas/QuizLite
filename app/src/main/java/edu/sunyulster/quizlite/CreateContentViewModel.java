@@ -45,14 +45,12 @@ public class CreateContentViewModel extends AndroidViewModel {
     public void saveToSharedPrefs() {
         SharedPreferences.Editor editor = sp.edit();
         try {
-            Log.i("CreateContentActivity", data.toString());
-            Log.i("CreateContentViewModel", ObjectSerializer.serialize(data));
-
             editor.putString(CONTENT_KEY, ObjectSerializer.serialize(data));
+            editor.commit();
         } catch (IOException e) {
+            Log.i("CreateContentViewModel", "Unable to save data to shared prefs");
             e.printStackTrace();
         }
-        editor.commit();
     }
 
     public int dataLength() {
