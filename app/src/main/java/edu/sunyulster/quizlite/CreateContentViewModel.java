@@ -72,6 +72,12 @@ public class CreateContentViewModel extends AndroidViewModel {
         StudyContent content = new StudyContent(data[0], data[1]);
         this.data.add(content);
     }
+    
+    public void updateDataAt(int index, String[] data) {
+        if (index >= data.size()) 
+            throw new IllegalArgumentException("illegal index: " + index);
+        return data.set(index, new StudyContent(data[0], data[1]));
+    }
 
     public void addDataToDb() {
         SharedPreferences.Editor editor = sp.edit();
