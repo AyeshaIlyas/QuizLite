@@ -14,7 +14,8 @@ import edu.sunyulster.quizlite.databinding.ActivityCreateContentBinding;
 public class CreateContentActivity extends AppCompatActivity {
 
     private ActivityCreateContentBinding binding;
-    private int cardNumber;
+    private int lastCard;
+    private int currentCard;
     private CreateContentViewModel vm;
     private SharedPreferences sp;
 
@@ -24,13 +25,16 @@ public class CreateContentActivity extends AppCompatActivity {
         binding = ActivityCreateContentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        cardNumber = 0;
-        setCardNumber(cardNumber + 1);
+        currentCard = 0;
+        lastCard = 0;
+        setCardNumber(lastCard + 1);
         sp = getSharedPreferences(getString(R.string.saved_study_set), MODE_PRIVATE);
         vm = new CreateContentViewModel(getApplication(), sp);
         // if saved data, then load into view model
-        if (vm.hasData())
-            fillForm(vm.getNthItem(cardNumber));
+        if (vm.hasData()) {
+            fillForm(vm.getNthItem(lastCard));
+            lastCard = vm.dataLength();
+        }
 
         // set listeners
         binding.newBtn.setOnClickListener(new View.OnClickListener() {
@@ -38,8 +42,8 @@ public class CreateContentActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (processData()) {
                     clearFields();
-                    ++cardNumber;
-                    setCardNumber(cardNumber + 1);
+                    currentCard = ++lastCard;
+                    setCardNumber(lastCard + 1);
                 }
             }
         });
@@ -59,9 +63,13 @@ public class CreateContentActivity extends AppCompatActivity {
         binding.backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (cardNumber > 0) {
-                    fillForm(vm.getNthItem(--cardNumber));
-                    setCardNumber(cardNumber + 1);
+                if (currentCard > 0) {
+                    // if data from the last card is not saved, save the data
+                    if (currentCard == lastCard && lastCard + 1 == vm.dataLength()) {
+                        processData();
+                    }
+                    fillForm(vm.getNthItem(--currentCard));
+                    setCardNumber(currentCard + 1);
                 }
             }
         });
@@ -69,9 +77,9 @@ public class CreateContentActivity extends AppCompatActivity {
         binding.forwardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (cardNumber < vm.dataLength() - 1) {
-                    fillForm(vm.getNthItem(++cardNumber));
-                    setCardNumber(cardNumber + 1);
+                if (currentCard < vm.dataLength() - 1) {
+                    fillForm(vm.getNthItem(++currentCard));
+                    setCardNumber(currentCard + 1);
                 }
             }
         });
