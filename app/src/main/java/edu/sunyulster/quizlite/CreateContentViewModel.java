@@ -66,17 +66,14 @@ public class CreateContentViewModel extends AndroidViewModel {
     public boolean hasData() {
         return data.size() > 0;
     }
-
-    public void saveData(String[] data) {
-        // if data is not valid, IllegalArgumentException
-        StudyContent content = new StudyContent(data[0], data[1]);
-        this.data.add(content);
-    }
     
-    public void updateDataAt(int index, String[] data) {
-        if (index >= data.size()) 
+    public void saveDataToIndex(int index, String[] data) {
+        if (index > data.size())
             throw new IllegalArgumentException("illegal index: " + index);
-        return data.set(index, new StudyContent(data[0], data[1]));
+        if (index == data.size()) 
+            this.data.add(new StudyContent(data[0], data[1]));
+        else
+            data.set(index, new StudyContent(data[0], data[1]))
     }
 
     public void addDataToDb() {
