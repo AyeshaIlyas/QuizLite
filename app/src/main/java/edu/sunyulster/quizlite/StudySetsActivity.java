@@ -13,7 +13,7 @@ import java.util.List;
 
 import edu.sunyulster.quizlite.databinding.ActivityStudySetsBinding;
 
-public class StudySetsActivity extends AppCompatActivity {
+public class StudySetsActivity extends AppCompatActivity implements StudySetsAdapter.OnItemClickedListener {
 
     private ActivityStudySetsBinding binding;
     private StudySetsViewModel vm;
@@ -44,5 +44,12 @@ public class StudySetsActivity extends AppCompatActivity {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
         finish();
+    }
+    
+    @Override
+    public void onItemClicked(int setId) {
+        Intent i = new Intent(this, StudyCardsActivity.class);
+        i.putExtra("studySetId", setId);
+        startActivity(i);
     }
 }
