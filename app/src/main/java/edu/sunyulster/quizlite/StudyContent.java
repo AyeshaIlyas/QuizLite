@@ -1,5 +1,6 @@
 package edu.sunyulster.quizlite;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -21,12 +22,14 @@ public class StudyContent implements Serializable {
     @ColumnInfo(name = "set_id")
     private long studySetId;
 
+    @NonNull
     private String key;
+    @NonNull
     private String value;
 
-    public StudyContent(String key, String value) {
-        if (key == null || value == null || key.trim().isEmpty() || value.trim().isEmpty())
-            throw new IllegalArgumentException("key and value must be nonnull and contain at least one non whitespace character");
+    public StudyContent(@NonNull String key, @NonNull String value) {
+        if (key.trim().isEmpty() || value.trim().isEmpty())
+            throw new IllegalArgumentException("key and value must contain at least one non whitespace character");
         this.key = key.trim();
         this.value = value.trim();
     }
@@ -47,29 +50,24 @@ public class StudyContent implements Serializable {
         this.studySetId = setId;
     }
 
-    public String getKey() {
+    public @NonNull String getKey() {
         return key;
     }
 
-    public void setKey(String key) {
-        if (key == null || key.trim().isEmpty())
-            throw new IllegalArgumentException("key must be nonnull and contain at least one non whitespace character");
+    public void setKey(@NonNull String key) {
+        if (key.trim().isEmpty())
+            throw new IllegalArgumentException("key must contain at least one non whitespace character");
         this.key = key.trim();
     }
 
-    public String getValue() {
+    public @NonNull String getValue() {
         return value;
     }
 
-    public void setValue(String value) {
-        if (value == null || value.trim().isEmpty())
-            throw new IllegalArgumentException("value must be nonnull and contain at least one non whitespace character");
+    public void setValue(@NonNull String value) {
+        if (value.trim().isEmpty())
+            throw new IllegalArgumentException("value must contain at least one non whitespace character");
         this.value = value.trim();
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Key: %s%nValue: %s", key, value);
     }
 
 }

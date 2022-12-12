@@ -3,20 +3,18 @@ package edu.sunyulster.quizlite;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.util.Log;
-
 import androidx.lifecycle.AndroidViewModel;
 
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.List;
 
 public class CreateContentViewModel extends AndroidViewModel {
-    private SharedPreferences sp;
+    private final SharedPreferences sp;
     private LinkedList<StudyContent> data;
-    private Application app;
+    private final Application app;
     private final String CONTENT_KEY;
     private final String EMPTY_FLAG;
-    private StudySetsRepository repo;
+    private final StudySetsRepository repo;
     private boolean savedToDb;
 
 
@@ -34,6 +32,7 @@ public class CreateContentViewModel extends AndroidViewModel {
         Log.i("CreateContentViewModel", String.valueOf(dataLength()));
     }
 
+    @SuppressWarnings("unchecked")
     private void loadData() {
         // deserialize from shared prefs
         if (!sp.getString(CONTENT_KEY, EMPTY_FLAG).equals(EMPTY_FLAG)) {
@@ -42,9 +41,11 @@ public class CreateContentViewModel extends AndroidViewModel {
                         sp.getString(CONTENT_KEY,
                                 ObjectSerializer.serialize(new LinkedList<StudyContent>())));
                 return;
-            } catch (IOException e) {}
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        data = new LinkedList<StudyContent>();
+        data = new LinkedList<>();
     }
 
     public void saveToSharedPrefs() {
@@ -54,7 +55,6 @@ public class CreateContentViewModel extends AndroidViewModel {
                 editor.putString(CONTENT_KEY, ObjectSerializer.serialize(data));
                 editor.apply();
             } catch (IOException e) {
-                Log.i("CreateContentViewModel", "Unable to save data to shared prefs");
                 e.printStackTrace();
             }
         }

@@ -1,29 +1,33 @@
 package edu.sunyulster.quizlite;
 
+import androidx.annotation.NonNull;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
 import java.util.List;
 
 public class StudySet {
+    @NonNull
     @Embedded
-    private StudySetInfo info;
+    private final StudySetInfo info;
+
+    @NonNull
     @Relation(
             parentColumn = "id",
             entityColumn = "set_id"
     )
-    private List<StudyContent> content;
+    private final List<StudyContent> content;
 
-    public StudySet(StudySetInfo info, List<StudyContent> content) {
+    public StudySet(@NonNull StudySetInfo info, @NonNull List<StudyContent> content) {
         this.info = info;
         this.content = content;
     }
 
-    public StudySetInfo getInfo() {
+    public @NonNull StudySetInfo getInfo() {
         return info;
     }
 
-    public List<StudyContent> getContent() {
+    public @NonNull List<StudyContent> getContent() {
         return content;
     }
 }

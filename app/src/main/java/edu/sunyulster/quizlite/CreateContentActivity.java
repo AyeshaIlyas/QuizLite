@@ -2,15 +2,11 @@ package edu.sunyulster.quizlite;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ShareActionProvider;
 
 import edu.sunyulster.quizlite.databinding.ActivityCreateContentBinding;
 
@@ -20,7 +16,6 @@ public class CreateContentActivity extends AppCompatActivity {
     private int lastCard;
     private int currentCard;
     private CreateContentViewModel vm;
-    private SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +26,7 @@ public class CreateContentActivity extends AppCompatActivity {
         currentCard = 0;
         lastCard = 0;
         setCardNumber(lastCard + 1);
-        sp = getSharedPreferences(getString(R.string.saved_study_set), MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences(getString(R.string.saved_study_set), MODE_PRIVATE);
         vm = new CreateContentViewModel(getApplication(), sp);
         // if saved data, then load into view model
         if (vm.hasData()) {
@@ -40,57 +35,55 @@ public class CreateContentActivity extends AppCompatActivity {
         }
 
         // set listeners
-        binding.newBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (storeDataLocally()) {
-                    clearFields();
-                    lastCard = vm.dataLength();
-                    currentCard = lastCard;
-                    setCardNumber(lastCard + 1);
-                }
+        binding.newBtn.setOnClickListener(view -> {
+            if (storeDataLocally()) {
+                clearFields();
+                lastCard = vm.dataLength();
+                currentCard = lastCard;
+                setCardNumber(lastCard + 1);
             }
         });
 
-        binding.doneBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (storeDataLocally()) {
-                    vm.addDataToDb();
-                    Intent i = new Intent(CreateContentActivity.this, StudySetsActivity.class);
-                    startActivity(i);
-                    CreateContentActivity.this.finishAffinity(); // clear activity backstack completely
-                }
+        binding.doneBtn.setOnClickListener(view -> {
+            if (storeDataLocally()) {
+                vm.addDataToDb();
+                Intent i = new Intent(CreateContentActivity.this, StudySetsActivity.class);
+                startActivity(i);
+                CreateContentActivity.this.finishAffinity(); // clear activity backstack completely
             }
         });
 
-        binding.backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (currentCard > 0 && storeDataLocally()) {
-                    Log.i("CreateContentActivity", "going back");
+        binding.backBtn.setOnClickListener(view -> {
+            if (currentCard > 0) {
+                Log.i("CreateContentActivity", "going back");
+                if (storeDataLocally()) {
                     fillForm(vm.getNthItem(--currentCard));
                     setCardNumber(currentCard + 1);
+                } else {
+                    if (currentCard == lastCard && fieldsAreEmpty()) {
+                        --lastCard;
+                        fillForm(vm.getNthItem(--currentCard));
+                        setCardNumber(currentCard + 1);
+                        binding.contentError.setVisibility(View.GONE);
+                    }
                 }
+
             }
         });
 
-        binding.forwardBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (currentCard < lastCard && storeDataLocally()) {
-                    Log.i("CreateContentActivity", "going forward");
-                    fillForm(vm.getNthItem(++currentCard));
-                    setCardNumber(currentCard + 1);
-                }
+        binding.forwardBtn.setOnClickListener(view -> {
+            if (currentCard < lastCard && storeDataLocally()) {
+                Log.i("CreateContentActivity", "going forward");
+                fillForm(vm.getNthItem(++currentCard));
+                setCardNumber(currentCard + 1);
+                binding.contentError.setVisibility(View.GONE);
             }
         });
     }
 
     public void setCardNumber(int number) {
-        binding.cardNumber.setText("Card: " + number);
+        binding.cardNumber.setText(String.format("Card: %d", number));
     }
-
 
     public void setFields(String key, String value) {
         binding.key.setText(key);
@@ -112,11 +105,19 @@ public class CreateContentActivity extends AppCompatActivity {
         return data;
     }
 
+    public boolean fieldsAreEmpty() {
+        String[] fields = getFieldData();
+        for (String f: fields)
+            if (!f.isEmpty())
+                return false;
+        return true;
+    }
+
     public boolean storeDataLocally() {
         // data is invalid if either field contains empty strings
         String[] data = getFieldData();
-        for (int i = 0; i < data.length; i++)
-            if (data[i].isEmpty()) {
+        for (String datum : data)
+            if (datum.isEmpty()) {
                 binding.contentError.setVisibility(View.VISIBLE);
                 return false;
             }
@@ -129,12 +130,10 @@ public class CreateContentActivity extends AppCompatActivity {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.not_saved_title)
                 .setMessage(R.string.not_saved_message)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        vm.saveToSharedPrefs();
-                        CreateContentActivity.this.finish();
-                    }
+                .setIcon(R.drawable.ic_warning)
+                .setPositiveButton(android.R.string.yes, (dialog, whichButton) -> {
+                    vm.saveToSharedPrefs();
+                    CreateContentActivity.this.finish();
                 })
                 .setNegativeButton(android.R.string.no, null)
                 .show();

@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -12,10 +13,10 @@ import java.util.List;
 public class StudySetsAdapter extends RecyclerView.Adapter<StudySetsAdapter.ViewHolder> {
 
     private List<StudySetInfo> infoList; // cached study set info objs
-    private OnItemClickedListener listener;
+    private final OnItemClickedListener listener;
     
     public interface OnItemClickedListener {
-        public void onItemClicked(long setId);
+        void onItemClicked(long setId);
     }
 
     public StudySetsAdapter(OnItemClickedListener listener) {
@@ -23,14 +24,14 @@ public class StudySetsAdapter extends RecyclerView.Adapter<StudySetsAdapter.View
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public @NonNull ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.study_set_info_layout, parent, false);
         return new ViewHolder(itemView, listener);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (infoList != null) {
             StudySetInfo current = infoList.get(position);
             holder.name.setText(current.getName());
@@ -46,7 +47,7 @@ public class StudySetsAdapter extends RecyclerView.Adapter<StudySetsAdapter.View
             holder.cardCount.setText(String.valueOf(current.getNumberOfCards()));
         } else {
             // Covers the case of data not being ready yet.
-            holder.name.setText("No Study Sets...");
+            holder.name.setText(R.string.no_study_sets);
         }
     }
 

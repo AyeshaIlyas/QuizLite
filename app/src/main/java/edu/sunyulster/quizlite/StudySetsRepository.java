@@ -12,18 +12,18 @@ import java.util.concurrent.Executors;
 
 public class StudySetsRepository {
 
-    private StudySetsDao dao;
-    private LiveData<List<StudySetInfo>> studySets;
-    private MutableLiveData<StudySet> studySet = new MutableLiveData<>();
+    private final StudySetsDao dao;
+    private final LiveData<List<StudySetInfo>> allSetsInfo;
+    private final MutableLiveData<StudySet> studySet = new MutableLiveData<>();
 
     public StudySetsRepository(Application application) {
         StudySetsDb db = StudySetsDb.getInstance(application);
         dao = db.studySetsDao();
-        studySets = dao.getStudySets();
+        allSetsInfo = dao.getAllStudySetInfo();
     }
 
-    public LiveData<List<StudySetInfo>> getStudySets() {
-        return studySets;
+    public LiveData<List<StudySetInfo>> getAllStudySetInfo() {
+        return allSetsInfo;
     }
 
     public MutableLiveData<StudySet> getStudySet() {
@@ -34,19 +34,14 @@ public class StudySetsRepository {
         new AddStudySetAsyncTask(dao).execute(studySet);
     }
 
-    public void getContent(long setId) {
+    public void getContentForSet(long setId) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        executor.submit(new Runnable() {
-            @Override
-            public void run() {
-                studySet.postValue(dao.getContent(setId));
-            }
-        });
+        executor.submit(() -> studySet.postValue(dao.getStudySet(setId)));
         executor.shutdown();
     }
 
     private static class AddStudySetAsyncTask extends AsyncTask<StudySet, Void, Void> {
-        private StudySetsDao dao;
+        private final StudySetsDao dao;
 
         public AddStudySetAsyncTask(StudySetsDao dao) {
             this.dao = dao;

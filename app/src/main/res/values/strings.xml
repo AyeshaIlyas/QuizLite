@@ -41,5 +41,7 @@
     <string name="study_sets">Study Sets</string>
     <string name="study_sets_subheading">Review your accumulated knowledge</string>
     <string name="cards">Cards:</string>
+    <string name="no_study_sets">No Study Sets...</string>
+    <string name="no_cards">No cards...</string>
 
 </resources>

@@ -31,14 +31,11 @@ public class StudyCardsActivity extends AppCompatActivity {
 
         // get card data from db using vm
         vm = new ViewModelProvider(this).get(StudySetsViewModel.class);
-        vm.getStudySet().observe(this, new Observer<StudySet>() {
-            @Override
-            public void onChanged(StudySet studySet) {
-                adapter.setData(studySet);
-                binding.nameTitle.setText(studySet.getInfo().getName());
-                binding.cardsInSet.setText(String.valueOf(studySet.getInfo().getNumberOfCards()));
-            }
+        vm.getStudySet().observe(this, studySet -> {
+            adapter.setData(studySet);
+            binding.nameTitle.setText(studySet.getInfo().getName());
+            binding.cardsInSet.setText(String.valueOf(studySet.getInfo().getNumberOfCards()));
         });
-        vm.getContent(id);
+        vm.getContentForSet(id);
     }
 }

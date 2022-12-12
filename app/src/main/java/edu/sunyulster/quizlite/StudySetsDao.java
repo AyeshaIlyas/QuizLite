@@ -11,7 +11,7 @@ import java.util.List;
 @Dao
 public interface StudySetsDao {
     @Query("SELECT * FROM study_sets")
-    LiveData<List<StudySetInfo>> getStudySets();
+    LiveData<List<StudySetInfo>> getAllStudySetInfo();
 
     @Insert
     long addStudySetInfo(StudySetInfo info);
@@ -22,5 +22,5 @@ public interface StudySetsDao {
     @Transaction
     @Query("SELECT * FROM study_sets " +
             "WHERE study_sets.id = :setId")
-    StudySet getContent(long setId);
+    StudySet getStudySet(long setId);
 }

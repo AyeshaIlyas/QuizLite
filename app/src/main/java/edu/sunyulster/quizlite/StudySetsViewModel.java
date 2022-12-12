@@ -9,18 +9,18 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.List;
 
 public class StudySetsViewModel extends AndroidViewModel {
-    private StudySetsRepository repo;
-    private LiveData<List<StudySetInfo>> info;
-    private MutableLiveData<StudySet> studySet;
+    private final StudySetsRepository repo;
+    private final LiveData<List<StudySetInfo>> info;
+    private final MutableLiveData<StudySet> studySet;
 
     public StudySetsViewModel(Application app) {
         super(app);
         repo = new StudySetsRepository(app);
-        info = repo.getStudySets();
+        info = repo.getAllStudySetInfo();
         studySet = repo.getStudySet();
     }
 
-    public LiveData<List<StudySetInfo>> getStudySets() {
+    public LiveData<List<StudySetInfo>> getAllStudySetInfo() {
         return info;
     }
 
@@ -28,12 +28,8 @@ public class StudySetsViewModel extends AndroidViewModel {
         return studySet;
     }
 
-    public void addStudySet(StudySet set) {
-        repo.addStudySet(set);
-    }
-
-    public void getContent(long id) {
-        repo.getContent(id);
+    public void getContentForSet(long id) {
+        repo.getContentForSet(id);
     }
 
 

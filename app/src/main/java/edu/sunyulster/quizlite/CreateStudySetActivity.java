@@ -2,14 +2,10 @@ package edu.sunyulster.quizlite;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 
 import edu.sunyulster.quizlite.databinding.ActivityCreateStudySetBinding;
 
@@ -31,26 +27,18 @@ public class CreateStudySetActivity extends AppCompatActivity {
             fillFormValues();
 
         // listeners
-        binding.eraseBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showEraseDataDialog();
-            }
-        });
+        binding.eraseBtn.setOnClickListener(view -> showEraseDataDialog());
 
-        binding.nextBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                boolean isValid = validateData();
-                if (isValid) {
-                    binding.error.setVisibility(View.GONE);
-                    saveData();
-                    Intent i = new Intent(CreateStudySetActivity.this, CreateContentActivity.class);
-                    startActivity(i);
-                } else {
-                    binding.error.setVisibility(View.VISIBLE);
-                    binding.error.setText(R.string.error1);
-                }
+        binding.nextBtn.setOnClickListener(view -> {
+            boolean isValid = validateData();
+            if (isValid) {
+                binding.error.setVisibility(View.GONE);
+                saveData();
+                Intent i = new Intent(CreateStudySetActivity.this, CreateContentActivity.class);
+                startActivity(i);
+            } else {
+                binding.error.setVisibility(View.VISIBLE);
+                binding.error.setText(R.string.error1);
             }
         });
     }
@@ -97,19 +85,15 @@ public class CreateStudySetActivity extends AppCompatActivity {
         editor.putString(getString(R.string.set_content), getString(R.string.empty_flag));
 
         editor.putString(getString(R.string.has_saved), "false");
-        editor.commit();
+        editor.apply();
     }
 
     public void showEraseDataDialog() {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.erase_title)
                 .setMessage(R.string.erase_message)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        eraseData();
-                    }
-                })
+                .setIcon(R.drawable.ic_warning)
+                .setPositiveButton(android.R.string.yes, (dialog, whichButton) -> eraseData())
                 .setNegativeButton(android.R.string.no, null)
                 .show();
     }
@@ -117,7 +101,7 @@ public class CreateStudySetActivity extends AppCompatActivity {
     public boolean validateData() {
         // data is invalid if either name or topic are empty strings
         String[] data = getFieldData();
-        for (int i = 0; i < data.length-2; i++)
+        for (int i = 0; i < data.length-1; i++)
             if (data[i].isEmpty())
                 return false;
         return true;
@@ -131,7 +115,7 @@ public class CreateStudySetActivity extends AppCompatActivity {
         editor.putString(getString(R.string.set_topic), data[1]);
         editor.putString(getString(R.string.desc), data[2]);
         editor.putString(getString(R.string.has_saved), "true");
-        editor.commit();
+        editor.apply();
     }
 
     @Override
