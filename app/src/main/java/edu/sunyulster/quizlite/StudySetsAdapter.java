@@ -1,6 +1,5 @@
 package edu.sunyulster.quizlite;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,7 @@ public class StudySetsAdapter extends RecyclerView.Adapter<StudySetsAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.study_card_layout, parent, false);
+                .inflate(R.layout.study_set_info_layout, parent, false);
         return new ViewHolder(itemView, listener);
     }
 
@@ -80,7 +79,7 @@ public class StudySetsAdapter extends RecyclerView.Adapter<StudySetsAdapter.View
         
         @Override
         public void onClick(View view) {
-            listener.onItemClicked(infoList.get(getAdapterPosition()));
+            listener.onItemClicked(infoList.get(getAdapterPosition()).getId());
         }
     }
 

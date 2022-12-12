@@ -7,44 +7,60 @@
     android:layout_height="match_parent"
     android:background="@color/dark"
     android:backgroundTint="@color/dark"
-    tools:context=".StudySetsActivity">
+    tools:context=".StudyCardsActivity">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:id="@+id/nameTitle"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
-        android:text="@string/study_sets"
+        android:layout_marginEnd="20dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
         android:textColor="@color/light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Study Set Name" />
 
     <TextView
-        android:id="@+id/studySetsSubheading"
-        android:layout_width="wrap_content"
+        android:id="@+id/cards"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="30dp"
-        android:text="@string/study_sets_subheading"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="@string/cards"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/light"
-        android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="@+id/textView"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameTitle" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/studySetsSubheading" />
+        app:layout_constraintTop_toBottomOf="@+id/cards" />
+
+    <TextView
+        android:id="@+id/cardsInSet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif-smallcaps"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/light"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/cards"
+        app:layout_constraintTop_toBottomOf="@+id/nameTitle"
+        tools:text="10" />
 </androidx.constraintlayout.widget.ConstraintLayout>

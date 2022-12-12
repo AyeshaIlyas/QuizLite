@@ -47,7 +47,7 @@ public class StudySetsActivity extends AppCompatActivity implements StudySetsAda
     }
     
     @Override
-    public void onItemClicked(int setId) {
+    public void onItemClicked(long setId) {
         Intent i = new Intent(this, StudyCardsActivity.class);
         i.putExtra("studySetId", setId);
         startActivity(i);

@@ -4,13 +4,17 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class StudySetsRepository {
 
     private StudySetsDao dao;
     private LiveData<List<StudySetInfo>> studySets;
+    private MutableLiveData<StudySet> studySet = new MutableLiveData<>();
 
     public StudySetsRepository(Application application) {
         StudySetsDb db = StudySetsDb.getInstance(application);
@@ -22,13 +26,23 @@ public class StudySetsRepository {
         return studySets;
     }
 
+    public MutableLiveData<StudySet> getStudySet() {
+        return studySet;
+    }
+
     public void addStudySet(StudySet studySet) {
         new AddStudySetAsyncTask(dao).execute(studySet);
     }
 
-    public StudySet getContent(long setId) {
-        // TODO: do in own thread?????
-        return dao.getContent(setId);
+    public void getContent(long setId) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.submit(new Runnable() {
+            @Override
+            public void run() {
+                studySet.postValue(dao.getContent(setId));
+            }
+        });
+        executor.shutdown();
     }
 
     private static class AddStudySetAsyncTask extends AsyncTask<StudySet, Void, Void> {

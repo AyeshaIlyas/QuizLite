@@ -14,11 +14,19 @@
         android:theme="@style/Theme.QuizLite"
         tools:targetApi="31">
         <activity
+            android:name=".StudyCardsActivity"
+            android:exported="false"
+            android:parentActivityName=".StudySetsActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".CreateContentActivity"
             android:exported="false" />
         <activity
             android:name=".StudySetsActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".CreateStudySetActivity"
             android:exported="false" />
