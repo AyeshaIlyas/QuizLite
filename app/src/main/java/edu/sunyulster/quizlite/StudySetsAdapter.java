@@ -12,7 +12,6 @@ import java.util.List;
 
 public class StudySetsAdapter extends RecyclerView.Adapter<StudySetsAdapter.ViewHolder> {
 
-    private final LayoutInflater inflater;
     private List<StudySetInfo> infoList; // cached study set info objs
     private OnItemClickedListener listener;
     
@@ -20,14 +19,14 @@ public class StudySetsAdapter extends RecyclerView.Adapter<StudySetsAdapter.View
         public void onItemClicked(long setId);
     }
 
-    public StudySetsAdapter(Context context, OnItemClickedListener listener) {
+    public StudySetsAdapter(OnItemClickedListener listener) {
         this.listener = listener;
-        inflater = LayoutInflater.from(context);
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = inflater.inflate(R.layout.study_card_layout, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.study_card_layout, parent, false);
         return new ViewHolder(itemView, listener);
     }
 
