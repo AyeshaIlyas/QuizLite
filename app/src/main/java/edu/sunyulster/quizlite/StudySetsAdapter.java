@@ -13,16 +13,22 @@ import java.util.List;
 public class StudySetsAdapter extends RecyclerView.Adapter<StudySetsAdapter.ViewHolder> {
 
     private final LayoutInflater inflater;
-    private List<StudySetInfo> infoList; // Cached copy of words
+    private List<StudySetInfo> infoList; // cached study set info objs
+    private OnItemClickedListener listener;
+    
+    public interface OnItemClickedListener {
+        public void onItemClicked(long setId);
+    }
 
-    public StudySetsAdapter(Context context) {
+    public StudySetsAdapter(Context context, OnItemClickedListener listener) {
+        this.listener = listener;
         inflater = LayoutInflater.from(context);
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = inflater.inflate(R.layout.study_card_layout, parent, false);
-        return new ViewHolder(itemView);
+        return new ViewHolder(itemView, listener);
     }
 
     @Override
@@ -53,20 +59,29 @@ public class StudySetsAdapter extends RecyclerView.Adapter<StudySetsAdapter.View
         else return 0;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView name;
         TextView topic;
         TextView desc;
         TextView date;
         TextView cardCount;
+        StudySetsAdapter.OnItemClickedListener listener;
+        
 
-        private ViewHolder(View itemView) {
+        private ViewHolder(View itemView, StudySetsAdapter.OnItemClickedListener listener) {
             super(itemView);
             name = itemView.findViewById(R.id.name);
             topic = itemView.findViewById(R.id.topic);
             desc = itemView.findViewById(R.id.desc);
             date = itemView.findViewById(R.id.date);
             cardCount = itemView.findViewById(R.id.cardCount);
+            this.listener = listener;
+            itemView.setOnClickListener(this);
+        }
+        
+        @Override
+        public void onClick(View view) {
+            listener.onItemClicked(infoList.get(getAdapterPosition()));
         }
     }
 
