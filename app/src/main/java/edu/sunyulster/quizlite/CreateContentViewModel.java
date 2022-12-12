@@ -16,17 +16,22 @@ public class CreateContentViewModel extends AndroidViewModel {
     private Application app;
     private final String CONTENT_KEY;
     private final String EMPTY_FLAG;
+    private StudySetsRepository repo;
+    private boolean savedToDb;
 
 
     public CreateContentViewModel(Application app, SharedPreferences sp) {
         super(app);
         this.app = app;
         this.sp = sp;
+        repo = new StudySetsRepository(app);
+        savedToDb = false;
 
         CONTENT_KEY = app.getString(R.string.set_content);
         EMPTY_FLAG = app.getString(R.string.empty_flag);
 
         loadData();
+        Log.i("CreateContentViewModel", String.valueOf(dataLength()));
     }
 
     private void loadData() {
@@ -43,13 +48,15 @@ public class CreateContentViewModel extends AndroidViewModel {
     }
 
     public void saveToSharedPrefs() {
-        SharedPreferences.Editor editor = sp.edit();
-        try {
-            editor.putString(CONTENT_KEY, ObjectSerializer.serialize(data));
-            editor.commit();
-        } catch (IOException e) {
-            Log.i("CreateContentViewModel", "Unable to save data to shared prefs");
-            e.printStackTrace();
+        if (!savedToDb) {
+            SharedPreferences.Editor editor = sp.edit();
+            try {
+                editor.putString(CONTENT_KEY, ObjectSerializer.serialize(data));
+                editor.apply();
+            } catch (IOException e) {
+                Log.i("CreateContentViewModel", "Unable to save data to shared prefs");
+                e.printStackTrace();
+            }
         }
     }
 
@@ -78,8 +85,25 @@ public class CreateContentViewModel extends AndroidViewModel {
 
     public void addDataToDb() {
         SharedPreferences.Editor editor = sp.edit();
+        editor.putString(app.getString(R.string.has_saved), "false");
         editor.putString(CONTENT_KEY, EMPTY_FLAG);
-        editor.commit();
-        Log.i("CreateContentViewModel", "Added to db. heehehe not really. All that work was for naught!!! Mwahahaha");
+        editor.apply();
+
+        // create StudySetInfo object
+        String name = app.getString(R.string.set_name);
+        String topic = app.getString(R.string.set_topic);
+        String desc = app.getString(R.string.desc);
+        name = sp.getString(name, "");
+        topic = sp.getString(topic, "");
+        desc = sp.getString(desc, "");
+        StudySetInfo info = new StudySetInfo(name, topic, desc, data.size());
+
+        // create StudySet object
+        StudySet studySet = new StudySet(info, data);
+        // add to db
+        repo.addStudySet(studySet);
+        savedToDb = true;
+
+        Log.i("CreateContentViewModel", "Added to db");
     }
 }

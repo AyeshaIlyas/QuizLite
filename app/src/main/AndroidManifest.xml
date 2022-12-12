@@ -18,8 +18,7 @@
             android:exported="false" />
         <activity
             android:name=".StudySetsActivity"
-            android:exported="false"
-            android:parentActivityName=".MainActivity"/>
+            android:exported="false"/>
         <activity
             android:name=".CreateStudySetActivity"
             android:exported="false" />
